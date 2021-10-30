@@ -1,0 +1,30 @@
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        q = collections.deque()
+        m,n = len(grid),len(grid[0])
+        fresh = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 2:
+                    q.append((i,j))
+                elif grid[i][j] == 1:
+                    fresh += 1
+        q.append((-1,-1))
+        minutes_elapsed = -1
+        directions = [[-1,0],[0,-1],[0,1],[1,0]]
+        while q:
+            row,col = q.popleft()
+            if row == -1:
+                minutes_elapsed += 1
+                if q:
+                    q.append((-1,-1))
+            else:
+                for dr,dc in directions:
+                    neighbor_row = dr + row
+                    neighbor_col = dc + col
+                    if (neighbor_row in range(m) and neighbor_col in range(n)): 
+                        if grid[neighbor_row][neighbor_col] == 1:
+                            grid[neighbor_row][neighbor_col] = 2
+                            fresh -= 1
+                            q.append((neighbor_row,neighbor_col))
+        return minutes_elapsed if fresh == 0 else -1
