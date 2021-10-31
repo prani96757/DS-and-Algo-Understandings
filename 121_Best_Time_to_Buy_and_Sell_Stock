@@ -1,0 +1,28 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        minimalbuy = float('inf')
+        profit = 0
+        for i in range(n):
+            if prices[i] < minimalbuy:
+                minimalbuy = prices[i]
+            elif prices[i] - minimalbuy > profit:
+                profit = prices[i] - minimalbuy
+        return profit
+        
+        
+        
+        
+ class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        minimalbuy = float('inf')
+        profit = 0
+        for i in range(n):
+            minimalbuy = min(minimalbuy, prices[i])
+         #   sell = prices[i]
+            profit = max(profit, prices[i] - minimalbuy)
+            
+        
+            
+        return profit
