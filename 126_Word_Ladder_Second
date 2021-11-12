@@ -1,0 +1,32 @@
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        if endWord not in wordList:
+            return []
+        nei = collections.defaultdict(list)
+        wordList.append(beginWord)
+        for word in wordList:
+            for j in range(len(word)):
+                pattern = word[:j] + "*" + word[j+1:]
+                nei[pattern].append(word)
+                
+        q = collections.deque()
+        q.append((beginWord,[beginWord]))
+        visited = set([beginWord])
+        output = []
+        while q and not output:
+            localvisited = set()
+            for i in range(len(q)):
+                word, path = q.popleft()
+                for j in range(len(word)):
+                    #pattern = word[:j] + "*" + word[j+1:]
+                    pattern = word[:j] + "*" + word[j+1:]
+                    for neiword in nei[pattern]:
+                        if neiword == endWord:
+                            output.append(path + [endWord])
+                        if neiword not in visited:
+                            localvisited.add(neiword)
+                            q.append((neiword, path + [neiword]))
+            visited = visited.union(localvisited)
+        return output
+                            
+                
