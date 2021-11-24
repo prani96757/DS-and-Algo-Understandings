@@ -22,8 +22,8 @@ def deserialize(string):
     
             
 def lowestCommonAncestor(root, p, q):
-    if root == p or root == q:
-            return root
+    if root.val == p or root.val == q:
+            return root.val
     left = right = None
         
     if root.left:
@@ -31,10 +31,10 @@ def lowestCommonAncestor(root, p, q):
     if root.right:
         right = lowestCommonAncestor(root.right, p, q)
     if left and right:
-        return root
+        return root.val
     else:
         return left or right
     
 if __name__ == '__main__':
     lowestCommonAncestor(deserialize('[3,5,1,6,2,0,8,null,null,7,4]'),5,1)
-    
+    #lowestCommonAncestor(deserialize('[2,1,3,0,7,9,1,2,null,1,0,null,null,8,8,null,null,null,null,7]'))
