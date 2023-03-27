@@ -1,0 +1,14 @@
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        
+        def canJumpFromPosition(position,nums):
+            n = len(nums)
+            if position == n-1:
+                return True
+            farthestjump = min(position + nums[position],n-1)
+            for i in range(position+1,farthestjump+1):
+                if canJumpFromPosition(i,nums):
+                    return True
+            
+            return False
+        return canJumpFromPosition(0,nums)
