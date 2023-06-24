@@ -1,0 +1,14 @@
+class Solution:
+    def highFive(self, items: List[List[int]]) -> List[List[int]]:
+        mp=collections.defaultdict(list)
+        for item in items:
+            if item[0] in mp:
+                mp[item[0]].append(item[1])
+            else:
+                mp[item[0]] = [item[1]]
+                
+                
+        for i in mp:
+            mp[i].sort()
+            mp[i]=mp[i][::-1][:5]
+        return sorted([[i,sum(mp[i])//len(mp[i])] for i in mp])
