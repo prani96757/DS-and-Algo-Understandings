@@ -1,0 +1,23 @@
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        n, d = numerator, denominator
+        if n%d == 0:
+            return str(n//d)
+        sign = '-' if n*d < 0 else ''
+        n,d = abs(n),abs(d)
+        res = sign + str(n//d) + '.'
+        n = n%d
+        i,part = 0,''
+        mp = {n:i}
+        while n%d:
+            n = n*10
+            i += 1
+            rem = n%d
+            part = part + str(n//d)
+            if rem in mp:
+                part = part[:mp[rem]] + '(' + part[mp[rem]:] + ')'
+                return res + part
+                
+            mp[rem] = i
+            n = rem
+        return res + part
